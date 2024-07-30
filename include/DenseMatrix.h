@@ -4,13 +4,16 @@
 #include "Matrix.h"
 #include <vector>
 
+class SparseMatrix; // Forward declaration
+
 class DenseMatrix : public Matrix {
 public:
     DenseMatrix(int rows, int cols);
     void solves() const override;
     void times() const override;
     void print() const override;
-    void nonSingularInit(int x);  // Renamed method to initialize with non-singular random elements
+    void nonSingularInit(int x);
+    SparseMatrix toCSR() const;  // Method to convert to CSR format
 
 private:
     int rows, cols;

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.cuf": "FortranFreeForm",
+        "iomanip": "cpp"
+    }
+}

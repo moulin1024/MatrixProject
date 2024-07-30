@@ -5,6 +5,11 @@ SparseMatrix::SparseMatrix(int rows, int cols) : rows(rows), cols(cols), row_ptr
     // Constructor implementation, row_ptr is initialized with size rows + 1, filled with 0
 }
 
+SparseMatrix::SparseMatrix(int rows, int cols, const std::vector<double>& values, const std::vector<int>& col_indices, const std::vector<int>& row_ptr)
+    : rows(rows), cols(cols), values(values), col_indices(col_indices), row_ptr(row_ptr) {
+    // Constructor implementation
+}
+
 void SparseMatrix::solves() const {
     std::cout << "Solving system with Sparse Matrix (CSR) implementation." << std::endl;
 }

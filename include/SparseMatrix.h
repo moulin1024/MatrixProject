@@ -7,6 +7,7 @@
 class SparseMatrix : public Matrix {
 public:
     SparseMatrix(int rows, int cols);
+    SparseMatrix(int rows, int cols, const std::vector<double>& values, const std::vector<int>& col_indices, const std::vector<int>& row_ptr);
     void solves() const override;
     void times() const override;
     void print() const override;

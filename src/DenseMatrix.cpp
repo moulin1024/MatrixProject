@@ -1,6 +1,8 @@
 #include "DenseMatrix.h"
+#include "SparseMatrix.h"
 #include <iostream>
 #include <random>
+#include <iomanip>
 #include <cmath> // for std::abs
 
 DenseMatrix::DenseMatrix(int rows, int cols) : rows(rows), cols(cols), data(rows, std::vector<double>(cols, 0.0)) {
@@ -19,7 +21,7 @@ void DenseMatrix::print() const {
     std::cout << "Dense Matrix:" << std::endl;
     for (const auto& row : data) {
         for (const auto& val : row) {
-            std::cout << val << " ";
+            std::cout << std::setw(10) << val << " ";
         }
         std::cout << std::endl;
     }
@@ -49,4 +51,25 @@ void DenseMatrix::nonSingularInit(int x) {
         }
         data[i][i] = sum + dist_val(gen);  // Ensure diagonal element is greater than the sum of non-diagonal elements
     }
+}
+
+SparseMatrix DenseMatrix::toCSR() const {
+    std::vector<double> values;
+    std::vector<int> col_indices;
+    std::vector<int> row_ptr;
+    const double epsilon = 1e-9; // Define a small tolerance value
+
+    row_ptr.push_back(0);
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (std::abs(data[i][j]) > epsilon) { // Use tolerance for comparison
+                values.push_back(data[i][j]);
+                col_indices.push_back(j);
+            }
+        }
+        row_ptr.push_back(values.size());
+    }
+
+    return SparseMatrix(rows, cols, values, col_indices, row_ptr);
 }
