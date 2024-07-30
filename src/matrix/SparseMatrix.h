@@ -1,3 +1,4 @@
+// src/matrix/SparseMatrix.h
 #ifndef SPARSEMATRIX_H
 #define SPARSEMATRIX_H
 
@@ -6,11 +7,12 @@
 
 class SparseMatrix : public Matrix {
 public:
-    SparseMatrix(int rows, int cols);
     SparseMatrix(int rows, int cols, const std::vector<double>& values, const std::vector<int>& col_indices, const std::vector<int>& row_ptr);
-    void solves() const override;
-    void times() const override;
-    void print() const override;
+    int getNumRows() const override;
+    int getNumCols() const override;
+    double getValue(int row, int col) const override;
+    void setValue(int row, int col, double value) override;
+    void print() const;
 
 private:
     int rows, cols;
